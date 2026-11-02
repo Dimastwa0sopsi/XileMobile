@@ -1,483 +1,218 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ru">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes, maximum-scale=5.0, viewport-fit=cover">
-  <title>XILE MOBILE · Мобильный РП проект</title>
-  <!-- Подключение современного шрифта -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background-color: #0a0a0a;
-      font-family: 'Montserrat', sans-serif;
-      color: #f1f1f1;
-      line-height: 1.5;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
-      min-height: 100vh;
-    }
-
-    /* Основной контейнер сайта */
-    .site-wrapper {
-      width: 100%;
-      max-width: 800px;
-      margin: 0 auto;
-      padding: 1.5rem 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 2.5rem;
-    }
-
-    /* --- ЦВЕТОВАЯ ПАЛИТРА XILE MOBILE (фиолетово-сине-чёрная) --- */
-    :root {
-      --deep-black: #0d0d0d;
-      --xile-purple: #9b30ff;
-      --xile-blue: #4d7cff;
-      --xile-accent: #b44dff;
-      --dark-surface: #1a1a1a;
-      --border-glow: #9b30ff;
-    }
-
-    /* Карточки и секции */
-    .card {
-      background: var(--dark-surface);
-      border: 1px solid #2a2a2a;
-      border-radius: 28px;
-      padding: 1.8rem 1.5rem;
-      box-shadow: 0 10px 25px rgba(155, 48, 255, 0.1);
-      transition: all 0.2s ease;
-    }
-
-    .card:hover {
-      border-color: var(--xile-purple);
-      box-shadow: 0 12px 30px rgba(155, 48, 255, 0.2);
-    }
-
-    /* Шапка — первый блок с контактом основателя */
-    .founder-contact {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      background: linear-gradient(105deg, #1a1a2e 0%, #0f0f1a 100%);
-      border-bottom: 2px solid var(--xile-purple);
-      border-radius: 32px;
-      padding: 1.2rem 2rem;
-    }
-
-    .founder-text {
-      font-weight: 700;
-      font-size: 1.1rem;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: #ccc;
-    }
-
-    .founder-text span {
-      color: var(--xile-accent);
-      font-weight: 800;
-    }
-
-    .founder-link {
-      background: var(--xile-purple);
-      color: white;
-      text-decoration: none;
-      padding: 0.7rem 1.6rem;
-      border-radius: 3rem;
-      font-weight: 700;
-      font-size: 0.95rem;
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      transition: 0.25s;
-      border: 1px solid #b44dff;
-      letter-spacing: 0.6px;
-      background: #7b1fa2;
-    }
-
-    .founder-link:hover {
-      background: #9b30ff;
-      border-color: var(--xile-accent);
-      box-shadow: 0 0 18px #9b30ff;
-      transform: scale(1.02);
-    }
-
-    /* Главный заголовок игры */
-    .main-title {
-      font-size: 3.5rem;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 6px;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-      color: #ffffff;
-      text-shadow: 3px 3px 0 #9b30ff, 6px 6px 0 rgba(0,0,0,0.7);
-      word-break: break-word;
-      background: linear-gradient(135deg, #c77dff, #7b2fff);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      text-shadow: none;
-      filter: drop-shadow(2px 2px 4px #000);
-    }
-
-    .sub-title {
-      font-size: 1.3rem;
-      font-weight: 600;
-      color: var(--xile-accent);
-      margin-bottom: 1.8rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .sub-title i {
-      font-style: normal;
-      font-size: 1.6rem;
-    }
-
-    /* Кнопка СКАЧАТЬ */
-    .download-btn {
-      background: linear-gradient(135deg, #9b30ff, #6a1b9a);
-      border: none;
-      color: #fff;
-      font-weight: 900;
-      font-size: 2rem;
-      padding: 1.2rem 2.8rem;
-      border-radius: 60px;
-      text-transform: uppercase;
-      letter-spacing: 3px;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.8rem;
-      border: 2px solid #c77dff;
-      box-shadow: 0 8px 20px rgba(155, 48, 255, 0.6);
-      transition: all 0.2s ease;
-      width: fit-content;
-      margin-top: 0.5rem;
-      margin-bottom: 0.8rem;
-      text-decoration: none;
-    }
-
-    .download-btn:hover {
-      background: linear-gradient(135deg, #b44dff, #7b1fa2);
-      box-shadow: 0 10px 28px #9b30ff;
-      transform: translateY(-2px);
-      border-color: #fff;
-      color: #fff;
-    }
-
-    .download-btn:active {
-      transform: scale(0.97);
-    }
-
-    /* Telegram секция */
-    .telegram-section {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 1.5rem;
-      background: #1e1e2e;
-      border-left: 5px solid var(--xile-purple);
-    }
-
-    .tg-channel a, .tg-bot a {
-      color: white;
-      text-decoration: none;
-      font-weight: 700;
-      font-size: 1rem;
-      background: #2b2b3a;
-      padding: 0.8rem 1.8rem;
-      border-radius: 3rem;
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      transition: 0.2s;
-      border: 1px solid #7b1fa2;
-    }
-
-    .tg-channel a:hover, .tg-bot a:hover {
-      background: #3a2f4a;
-      border-color: var(--xile-accent);
-      color: #d1b3ff;
-    }
-
-    /* Игровое описание */
-    .game-desc {
-      font-size: 1.1rem;
-      margin: 1.2rem 0;
-      color: #ddd;
-    }
-
-    .purple-highlight {
-      color: var(--xile-accent);
-      font-weight: 700;
-    }
-
-    .blue-highlight {
-      color: var(--xile-blue);
-      font-weight: 700;
-    }
-
-    hr {
-      border: 0.5px solid #3a3a4a;
-      margin: 1.8rem 0 1rem;
-    }
-
-    /* Подвал */
-    .footer-ad {
-      margin-top: 0.5rem;
-      background: #0b0b0b;
-      border: 1px dashed #9b30ff;
-      border-radius: 20px;
-      padding: 1.5rem;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.8rem;
-      background: #12121a;
-    }
-
-    .ad-text {
-      font-size: 1rem;
-      color: #aaa;
-      letter-spacing: 0.5px;
-    }
-
-    .gim-link {
-      color: var(--xile-accent);
-      font-weight: 800;
-      font-size: 1.4rem;
-      text-decoration: none;
-      background: #1f1f2e;
-      padding: 0.5rem 2rem;
-      border-radius: 40px;
-      display: inline-block;
-      transition: 0.25s;
-      border: 1px solid #9b30ff;
-    }
-
-    .gim-link:hover {
-      background: #2c1f3a;
-      color: #ffffff;
-      border-color: #b44dff;
-      box-shadow: 0 0 15px #9b30ff;
-    }
-
-    .small-note {
-      font-size: 0.8rem;
-      color: #777;
-    }
-
-    /* Кнопки-ссылки в подвале */
-    .dev-links {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-      margin: 0.8rem 0;
-    }
-
-    .dev-btn {
-      background: #2a2a3a;
-      color: #fff;
-      text-decoration: none;
-      padding: 0.6rem 1.4rem;
-      border-radius: 2rem;
-      font-weight: 600;
-      font-size: 0.9rem;
-      display: inline-flex;
-      align-items: center;
-      gap: 0.3rem;
-      border: 1px solid #444;
-      transition: all 0.2s;
-      letter-spacing: 0.4px;
-    }
-
-    .dev-btn:hover {
-      background: #3a2f4a;
-      border-color: var(--xile-purple);
-      color: #d1b3ff;
-      box-shadow: 0 0 12px #9b30ff;
-    }
-
-    .dev-btn.download-dev {
-      background: #6a1b9a;
-      border-color: #b44dff;
-      font-weight: 700;
-    }
-
-    .dev-btn.download-dev:hover {
-      background: #9b30ff;
-    }
-
-    .dev-btn.rules-btn {
-      background: #1e1e2e;
-      border-color: var(--xile-blue);
-    }
-
-    .dev-btn.rules-btn:hover {
-      background: #2a2a4a;
-      border-color: #4d7cff;
-      color: #b3c7ff;
-    }
-
-    /* Адаптивность */
-    @media (max-width: 550px) {
-      .main-title {
-        font-size: 2.5rem;
-        letter-spacing: 3px;
-      }
-      .founder-contact {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-      .download-btn {
-        font-size: 1.5rem;
-        padding: 1rem 2rem;
-      }
-    }
-  </style>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <meta name="theme-color" content="#05070a" />
+  <title>ОБЪЕКТ 12 — кооперативный хоррор</title>
+  <meta name="description" content="ОБЪЕКТ 12 — сетевой 3D-хоррор в заброшенном бункере. Кооператив до 4 выживших, процедурная планировка, Смотритель." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' fill='%2305070a'/><circle cx='16' cy='16' r='7' fill='none' stroke='%23ff2a1a' stroke-width='3'/></svg>" />
 </head>
 <body>
-  <div class="site-wrapper">
-    
-    <!-- САМЫЙ ВЕРХ: Связаться с основателем -->
-    <div class="founder-contact card" style="border-radius: 30px;">
-      <div class="founder-text">
-         <span>Связаться с разработчиком</span>
-      </div>
-      <a href="https://t.me/sorrysvat42" target="_blank" rel="noopener noreferrer" class="founder-link">
-         💬 Написать...
-      </a>
-    </div>
+  <div id="app">
+    <canvas id="game"></canvas>
 
-    <!-- Основной блок игры XILE MOBILE -->
-    <div class="card" style="text-align: center;">
-      <h1 class="main-title">XILE<br>MOBILE</h1>
-      <div class="sub-title">
-        <i>🎮</i>Твой мобильный РП проект! Качай и залетай в игру! <i>🎮</i>
-      </div>
-      
-      <!-- Кнопка Скачать (активная ссылка на Google Drive) -->
-      <a href="https://drive.google.com/file/d/1PtVYcGmYZCfpKwLloWtMnsHQUGE5q31A/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="download-btn" id="mainDownloadBtn">
-        ⬇️ СКАЧАТЬ
-      </a>
-      <div style="font-size: 0.85rem; color: #b44dff; margin-top: 0.3rem;">
-        APK файл (Google Drive)
+    <!-- Киношные слои -->
+    <div id="vignette"></div>
+    <div id="scanlines"></div>
+    <div id="grain"></div>
+    <div id="damage"></div>
+    <div id="fear"></div>
+
+    <!-- Игровой HUD -->
+    <div id="hud" class="hidden">
+      <div id="crosshair"></div>
+
+      <div id="objective-panel">
+        <div class="panel-title">ЗАДАЧА</div>
+        <div class="obj-row" id="obj-row-fuse"><span class="obj-dot"></span>Предохранители <b id="obj-fuses">0 / 5</b></div>
+        <div class="obj-row" id="obj-row-gen"><span class="obj-dot"></span>Запустить генератор <b id="obj-gen">—</b></div>
+        <div class="obj-row" id="obj-row-exit"><span class="obj-dot"></span>Дойти до шлюза <b id="obj-exit">—</b></div>
+        <div class="obj-sub" id="obj-notes">Записки: 0 / 6</div>
+        <div class="obj-sub" id="obj-timer">00:00</div>
       </div>
 
-      <hr>
-      
-      <div class="game-desc">
-        <span class="purple-highlight">XILE MOBILE</span> — Уникальный мобильный РП проект. Регистрируйся, заходи на сервер и начни свою историю! Наслаждайся игрой с друзьями на 
-        <span class="blue-highlight">XILE</span> MOBILE
+      <div id="net-panel">
+        <div id="net-status">подключение…</div>
+        <div id="room-line">КОМНАТА <b id="room-code">----</b></div>
+        <div id="peers"></div>
       </div>
 
-      <!-- Telegram канал и бот -->
-      <div class="telegram-section" style="margin-top: 1.5rem; gap: 1rem;">
-        <div class="tg-channel">
-          <a href="https://t.me/hilemobile_br" target="_blank" rel="noopener noreferrer">
-            <span>📢 Telegram канал</span>
-          </a>
+      <div id="bars">
+        <div class="bar-row">
+          <span class="bar-label">ЖИЗНЬ</span>
+          <div class="bar"><i id="bar-health" style="width:100%"></i></div>
+          <span class="bar-val" id="val-health">100</span>
         </div>
-        <div class="tg-bot">
-          <a href="https://t.me/HileMobileRPbot" target="_blank" rel="noopener noreferrer">
-            <span>🤖 Бот игры</span>
-          </a>
+        <div class="bar-row">
+          <span class="bar-label">ДЫХ.</span>
+          <div class="bar"><i id="bar-stamina" class="stamina" style="width:100%"></i></div>
+          <span class="bar-val" id="val-stamina">100</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-label">ФОНАРЬ</span>
+          <div class="bar"><i id="bar-battery" class="battery" style="width:100%"></i></div>
+          <span class="bar-val" id="val-battery">100</span>
         </div>
       </div>
-      <div style="margin-top: 0.8rem; font-size: 0.9rem; color: #b0b0b0;">
-        @hilemobile_br | @HileMobileRPbot
+
+      <div id="prompt" class="hidden"><b>E</b> <span id="prompt-text"></span></div>
+      <div id="progress-wrap" class="hidden"><div id="progress"><i id="progress-fill"></i></div><span id="progress-label"></span></div>
+
+      <div id="hints">WASD — идти · SHIFT — бежать · CTRL — тихо · F — фонарь · E — действие · M — карта · T — чат</div>
+      <div id="chat-log"></div>
+      <div id="chat-bar" class="hidden">
+        <span>ЧАТ</span>
+        <input id="chat-input" maxlength="120" autocomplete="off" placeholder="сообщение… (Enter — отправить)" />
       </div>
-      
-      <!-- Кнопка Правила игры -->
-      <div style="margin-top: 1.2rem;">
-        <a href="https://clck.ru/3Tc8rv" target="_blank" rel="noopener noreferrer" class="dev-btn rules-btn" style="font-size: 1rem; padding: 0.8rem 2rem;">
-          📜 Правила игры
-        </a>
+      <div id="hidden-banner" class="hidden">ВЫ В ШКАФУ · <b>E</b> — выйти · держитесь тихо</div>
+      <div id="downed-banner" class="hidden">ВЫ ТЯЖЕЛО РАНЕНЫ · ждите напарника</div>
+      <div id="spectate-banner" class="hidden">ВЫ МЕРТВЫ · наблюдение</div>
+    </div>
+
+    <!-- Карта -->
+    <div id="map-screen" class="hidden">
+      <div class="map-box">
+        <div class="panel-title">СХЕМА УРОВНЯ</div>
+        <canvas id="map-canvas" width="480" height="480"></canvas>
+        <div class="map-legend">
+          <span><i class="lg you"></i>вы</span>
+          <span><i class="lg mate"></i>напарник</span>
+          <span><i class="lg fuse"></i>предохранитель</span>
+          <span><i class="lg gen"></i>генератор</span>
+          <span><i class="lg exit"></i>шлюз</span>
+        </div>
+        <div class="map-hint">M — закрыть</div>
       </div>
     </div>
 
-    <!-- Блок разработчиков -->
-    <div class="card" style="display: flex; align-items: center; justify-content: center; gap: 1.5rem; flex-wrap: wrap;">
-      <span style="color: var(--xile-purple); font-weight: 700;">НАШИ РАЗРАБОТЧИКИ</span>
-      <a href="https://t.me/sorrysvat42" target="_blank" rel="noopener noreferrer" style="color: #c77dff; text-decoration: none; font-weight: 600;">@sorrysvat42</a>
-      <a href="https://t.me/Kitty_Kittys" target="_blank" rel="noopener noreferrer" style="color: #c77dff; text-decoration: none; font-weight: 600;">@Kitty_Kittys</a>
+    <!-- Стартовый экран -->
+    <div id="screen-intro" class="screen">
+      <div class="intro-inner">
+        <div class="logo-mark">◉</div>
+        <h1 class="game-title" data-text="ОБЪЕКТ 12">ОБЪЕКТ 12</h1>
+        <div class="tagline">кооперативный хоррор · бункер «НУЛЕВОЙ ЭТАЖ»</div>
+
+        <div class="lore">
+          <p>12 ноября 1987 года объект закрыли за 41 минуту. В официальном отчёте — «утечка теплоносителя». В живых — никого.</p>
+          <p>Сегодня датчики снова фиксируют движение на нулевом этаже. Вы — ремонтная группа. Ваша задача: подать питание на генератор, найти предохранители в лабиринте и уйти через шлюз.</p>
+          <p>В темноте есть <b>Смотритель</b>. Он не видит в темноте, но слышит шаги и идёт на свет фонаря. Прячьтесь в шкафах. Не бегите вслепую. И не оставайтесь один.</p>
+        </div>
+
+        <div class="form-grid">
+          <label>ПОЗЫВНОЙ
+            <input id="input-name" maxlength="14" value="" placeholder="ВЫЖИВШИЙ" autocomplete="off" />
+          </label>
+          <label>КОМНАТА
+            <input id="input-room" maxlength="6" value="" placeholder="AUTO" autocomplete="off" />
+          </label>
+          <label>СЕРВЕР
+            <select id="input-server">
+              <option value="auto">авто (ngrok → локальный)</option>
+              <option value="remote">wss://…ngrok-free.dev</option>
+              <option value="local">локальный релей</option>
+            </select>
+          </label>
+          <label>КАЧЕСТВО
+            <select id="input-quality">
+              <option value="high">высокое</option>
+              <option value="medium" selected>среднее</option>
+              <option value="low">низкое (слабое железо)</option>
+            </select>
+          </label>
+          <label>ЯРКОСТЬ
+            <select id="input-bright">
+              <option value="dark">тёмная (как в бункере)</option>
+              <option value="normal" selected>обычная</option>
+              <option value="bright">яркая (плохой экран)</option>
+            </select>
+          </label>
+        </div>
+
+        <div id="intro-status" class="intro-status">инициализация…</div>
+
+        <button id="btn-start" class="big-btn" disabled>СПУСТИТЬСЯ В БУНКЕР</button>
+
+        <div class="join-line">
+          <span>Ссылка для напарников:</span>
+          <code id="join-link">…</code>
+          <button id="btn-copy" class="mini-btn">копировать</button>
+        </div>
+
+        <div class="controls-grid">
+          <div><b>WASD</b> движение</div><div><b>МЫШЬ</b> обзор</div>
+          <div><b>SHIFT</b> бег</div><div><b>CTRL</b> тихий шаг</div>
+          <div><b>F</b> фонарь</div><div><b>E</b> действие / шкаф</div>
+          <div><b>M</b> карта</div><div><b>T / ENTER</b> чат</div>
+          <div><b>ESC</b> пауза</div><div><b>НА ТЕЛЕФОНЕ</b> стик + кнопки</div>
+        </div>
+
+        <div class="warn">НАДЕНЬТЕ НАУШНИКИ · ЗВУК ВАЖЕН ДЛЯ ВЫЖИВАНИЯ</div>
+      </div>
     </div>
 
-    <!-- ПОДВАЛ сайта -->
-    <div class="footer-ad">
-      <div class="ad-text">
-        <span style="color:#b44dff;">●</span> Партнёрский проект <span style="color:#b44dff;">●</span>
+    <!-- Пауза -->
+    <div id="screen-pause" class="screen hidden">
+      <div class="modal">
+        <h2>ПАУЗА</h2>
+        <p class="muted">Игра продолжается для остальных. Смотритель не ждёт.</p>
+        <div id="pause-net" class="muted small"></div>
+        <button id="btn-resume" class="big-btn">ПРОДОЛЖИТЬ</button>
+        <button id="btn-copy2" class="mini-btn">скопировать ссылку</button>
+        <button id="btn-quit" class="mini-btn danger">выйти в меню</button>
       </div>
-      <a href="https://dimastwa0sopsi.github.io/GimStudiosWeb/" target="_blank" rel="noopener noreferrer" class="gim-link">
-        🔥 GimPrograms
-      </a>
-      <div class="small-note">
-        GimStudios — Разработчик веб сайтов.
-      </div>
-      
-      <!-- Блок ссылок (подвал) -->
-      <div class="dev-links">
-        <!-- Разработчики -->
-        <a href="https://t.me/sorrysvat42" target="_blank" rel="noopener noreferrer" class="dev-btn">
-          💬 @sorrysvat42
-        </a>
-        <a href="https://t.me/Kitty_Kittys" target="_blank" rel="noopener noreferrer" class="dev-btn">
-          💬 @Kitty_Kittys
-        </a>
-        <!-- Бот игры -->
-        <a href="https://t.me/HileMobileRPbot" target="_blank" rel="noopener noreferrer" class="dev-btn">
-          🤖 Бот игры
-        </a>
-        <!-- Канал игры -->
-        <a href="https://t.me/hilemobile_br" target="_blank" rel="noopener noreferrer" class="dev-btn">
-          📢 Канал
-        </a>
-        <!-- Правила -->
-        <a href="https://clck.ru/3Tc8rv" target="_blank" rel="noopener noreferrer" class="dev-btn rules-btn">
-          📜 Правила
-        </a>
-        <!-- Кнопка СКАЧАТЬ -->
-        <a href="https://drive.google.com/file/d/1PtVYcGmYZCfpKwLloWtMnsHQUGE5q31A/view?usp=drivesdk" target="_blank" rel="noopener noreferrer" class="dev-btn download-dev">
-          ⬇️ СКАЧАТЬ
-        </a>
-      </div>
+    </div>
 
-      <div style="font-size: 0.75rem; color: #5a5a5a; margin-top: 0.3rem;">
-        © 2025 XILE MOBILE
+    <!-- Смерть -->
+    <div id="screen-dead" class="screen hidden">
+      <div class="modal">
+        <h2 class="red">ВАС НАШЛИ</h2>
+        <p id="dead-text" class="muted">Сигнал вашего датчика оборвался.</p>
+        <div class="row-btns">
+          <button id="btn-spectate" class="big-btn">НАБЛЮДАТЬ</button>
+          <button id="btn-restart" class="mini-btn">НОВЫЙ ЗАХОД</button>
+        </div>
       </div>
+    </div>
+
+    <!-- Победа -->
+    <div id="screen-win" class="screen hidden">
+      <div class="modal">
+        <h2 class="green">ШЛЮЗ ЗА СПИНОЙ</h2>
+        <p class="muted" id="win-text">Вы выбрались.</p>
+        <div id="win-stats" class="stats"></div>
+        <div class="row-btns">
+          <button id="btn-again" class="big-btn">ЕЩЁ РАЗ</button>
+          <button id="btn-menu" class="mini-btn">В МЕНЮ</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Поражение -->
+    <div id="screen-lose" class="screen hidden">
+      <div class="modal">
+        <h2 class="red">СИГНАЛ ПОТЕРЯН</h2>
+        <p class="muted">Никто не вышел к шлюзу. Объект 12 снова закрыт.</p>
+        <div class="row-btns">
+          <button id="btn-again2" class="big-btn">НОВЫЙ ЗАХОД</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="toast"></div>
+
+    <!-- Кнопки для телефона -->
+    <div id="touch-controls">
+      <button class="tbtn" data-action="interact"><span>E</span></button>
+      <button class="tbtn" data-action="torch"><span>F</span></button>
+      <button class="tbtn" data-action="crouch"><span>ТИХО</span></button>
+      <button class="tbtn" data-action="sprint"><span>БЕГ</span></button>
+      <button class="tbtn small" data-action="map"><span>КАРТА</span></button>
+      <button class="tbtn small pause-tbtn" data-action="pause"><span>II</span></button>
+      <button class="tbtn small chat-tbtn" data-action="chat"><span>ЧАТ</span></button>
     </div>
   </div>
 
-  <script>
-    (function() {
-      const mainBtn = document.getElementById('mainDownloadBtn');
-      if (mainBtn) {
-        mainBtn.addEventListener('click', function(e) {
-          // Ссылка активна, никаких заглушек.
-        });
-      }
-    })();
-  </script>
+  <script type="module" src="/src/main.js"></script>
 </body>
 </html>
