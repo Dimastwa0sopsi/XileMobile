@@ -220,8 +220,9 @@ class Game {
 
     this.hud.showScreen(null);
     this.hud.showHUD(true);
-    this.hud.chat('СИСТЕМА', 'Добро пожаловать на нулевой этаж. Найдите предохранители.', true);
-    this.hud.chat('СИСТЕМА', `Комната ${this.room}. Позовите напарников по ссылке.`, true);
+    this.hud.chat('СИСТЕМА', 'Добро пожаловать на нулевой этаж. Нужно 5 предохранителей.', true);
+    this.hud.chat('СИСТЕМА', `Генератор ${this.compassTo(this.world.generator.pos)}. Комната ${this.room}.`, true);
+    this.hud.chat('СИСТЕМА', 'Ссылка на комнату — кнопка «скопировать» в паузе.', true);
     this.hud.toast('Смотритель просыпается через 28 секунд. Не стойте на месте.');
 
     this.running = true;
@@ -233,6 +234,16 @@ class Game {
 
     this.lastTime = performance.now();
     requestAnimationFrame((t) => this.loop(t));
+  }
+
+  compassTo(target) {
+    const dx = target.x - this.player.pos.x;
+    const dz = target.z - this.player.pos.z;
+    const ns = dz < -12 ? 'севернее' : dz > 12 ? 'южнее' : '';
+    const ew = dx > 12 ? 'восточнее' : dx < -12 ? 'западнее' : '';
+    const dist = Math.round(Math.hypot(dx, dz));
+    if (!ns && !ew) return `рядом (${dist} м)`;
+    return `${[ns, ew].filter(Boolean).join(' и ')} вас, ~${dist} м`;
   }
 
   restart() {
@@ -533,6 +544,14 @@ class Game {
       this.shake = Math.max(0, this.shake - dt * 2.5);
       this.camera.position.x += (Math.random() - 0.5) * this.shake * 0.2;
       this.camera.position.y += (Math.random() - 0.5) * this.shake * 0.2;
+    }
+
+    // Пробуждение Смотрителя
+    if (!this.graceAnnounced && this.elapsed > MONSTER.grace) {
+      this.graceAnnounced = true;
+      this.hud.chat('СИСТЕМА', 'Датчики движения: по нулевому этажу кто-то идёт.', true);
+      this.hud.toast('Смотритель проснулся. Он слышит шаги.', 5000);
+      this.audio.sting();
     }
 
     this.hud.setBars(player);
